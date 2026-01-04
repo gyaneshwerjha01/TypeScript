@@ -1,5 +1,4 @@
-1\. Primitives: Number, String, Boolean
----------------------------------------
+## 1\. Primitives: Number, String, Boolean
 
 TypeScript enforces types for basic JavaScript primitives. This prevents errors at compile-time.
 
@@ -29,14 +28,13 @@ console.log(sum);  // Output: 30
 
 **Explanation**:
 
--   Parameters are explicitly typed (e.g., number for nums).
--   Return type is number | void (union type) since it may return a number or nothing.
--   TypeScript infers types for variables like n1 but you can annotate for clarity.
+- Parameters are explicitly typed (e.g., number for nums).
+- Return type is number | void (union type) since it may return a number or nothing.
+- TypeScript infers types for variables like n1 but you can annotate for clarity.
 
-* * * * *
+---
 
-2\. Objects
------------
+## 2\. Objects
 
 Objects are typed using inline types or interfaces (covered later). Nested objects are supported.
 
@@ -64,16 +62,15 @@ console.log(person);  // Output: { firstName: 'Patel', age: 21, xyz: { address: 
 
 **Explanation**:
 
--   The type defines exact structure; adding extra properties or wrong types causes errors.
--   Useful for simple, one-off objects.
+- The type defines exact structure; adding extra properties or wrong types causes errors.
+- Useful for simple, one-off objects.
 
-* * * * *
+---
 
-3\. Arrays and Tuples
----------------------
+## 3\. Arrays and Tuples
 
--   **Arrays**: Homogeneous collections (e.g., all strings).
--   **Tuples**: Fixed-length arrays with specific types per index (heterogeneous).
+- **Arrays**: Homogeneous collections (e.g., all strings).
+- **Tuples**: Fixed-length arrays with specific types per index (heterogeneous).
 
 ### Example: Arrays
 
@@ -111,14 +108,13 @@ console.log(person.product);  // Output: [10, 'Macbook M2']
 
 **Explanation**:
 
--   string[] ensures all elements are strings.
--   any[] bypasses checks (use sparingly).
--   Tuples enforce length and types, ideal for structured data like coordinates [x: number, y: number].
+- string[] ensures all elements are strings.
+- any[] bypasses checks (use sparingly).
+- Tuples enforce length and types, ideal for structured data like coordinates [x: number, y: number].
 
-* * * * *
+---
 
-4\. Enums
----------
+## 4\. Enums
 
 Enums define named constants, useful for fixed sets of values (e.g., roles).
 
@@ -152,13 +148,12 @@ if (person.role === Role.AUTHOR) {
 
 **Explanation**:
 
--   Enums auto-assign numbers starting from 0.
--   Use for readable code; compare with === for exact matches.
+- Enums auto-assign numbers starting from 0.
+- Use for readable code; compare with === for exact matches.
 
-* * * * *
+---
 
-5\. Union Types ()
-------------------
+## 5\. Union Types ()
 
 Unions allow a value to be one of several types.
 
@@ -184,13 +179,12 @@ console.log(sum, combinedName);  // Output: 30 "Patel MernStack"
 
 **Explanation**:
 
--   number | string means the param can be either.
--   Use typeof checks inside to narrow types safely.
+- number | string means the param can be either.
+- Use typeof checks inside to narrow types safely.
 
-* * * * *
+---
 
-6\. Literal Types
------------------
+## 6\. Literal Types
 
 Literals restrict unions to specific values (e.g., exact strings).
 
@@ -223,13 +217,12 @@ console.log(sum1, sum2, combinedName);  // Output: 30 60 "Patel MernStack"
 
 **Explanation**:
 
--   "as-number" | "as-string" only allows these exact strings.
--   Enhances type safety for flags/modes.
+- "as-number" | "as-string" only allows these exact strings.
+- Enhances type safety for flags/modes.
 
-* * * * *
+---
 
-7\. Type Aliases
-----------------
+## 7\. Type Aliases
 
 Custom types via type for reusability (e.g., unions, objects).
 
@@ -277,13 +270,12 @@ greet(user);
 
 **Explanation**:
 
--   type creates reusable aliases.
--   Great for complex unions or object shapes.
+- type creates reusable aliases.
+- Great for complex unions or object shapes.
 
-* * * * *
+---
 
-8\. Function Return Types and Callbacks
----------------------------------------
+## 8\. Function Return Types and Callbacks
 
 Specify exact return types. Use function types for variables/callbacks.
 
@@ -320,17 +312,16 @@ addHandle(10, 20, (result: number) => {
 
 **Explanation**:
 
--   : void means no return (but can have side effects like console.log).
--   (a: number, b: number) => number is a function signature type.
--   Callbacks pass functions as args for event-like behavior.
+- : void means no return (but can have side effects like console.log).
+- (a: number, b: number) => number is a function signature type.
+- Callbacks pass functions as args for event-like behavior.
 
-* * * * *
+---
 
-9\. Unknown and Never Types
----------------------------
+## 9\. Unknown and Never Types
 
--   unknown: Safer than any---must narrow before use.
--   never: For functions that never return (e.g., throw errors).
+- unknown: Safer than any---must narrow before use.
+- never: For functions that never return (e.g., throw errors).
 
 ### Example: Unknown Type
 
@@ -365,13 +356,12 @@ console.log(res);  // Unreachable code
 
 **Explanation**:
 
--   unknown forces runtime checks.
--   never signals exhaustive cases or infinite loops.
+- unknown forces runtime checks.
+- never signals exhaustive cases or infinite loops.
 
-* * * * *
+---
 
-10\. Classes
-------------
+## 10\. Classes
 
 Classes in TypeScript add type safety to JS classes.
 
@@ -408,10 +398,10 @@ accounting.printEmployeeInformation();  // Output: Number of employees: 2 \n ['P
 
 ### Access Modifiers
 
--   public: Default, accessible everywhere.
--   private: Only within class.
--   protected: Within class and subclasses.
--   readonly: Immutable after init.
+- public: Default, accessible everywhere.
+- private: Only within class.
+- protected: Within class and subclasses.
+- readonly: Immutable after init.
 
 ### Example: Readonly and Protected
 
@@ -438,22 +428,38 @@ class Department {
 TypeScript
 
 ```
+class Department {
+  private employees: string[] = [];
+  constructor(public id: string, public name: string) {}
+
+  describe(this: Department): void {
+    console.log(`Department ${this.name}`);
+  }
+
+  addEmployee(emp: string): void {
+    this.employees.push(emp);
+  }
+
+  printEmployee(): void {
+    console.log(`Number of employees : ${this.employees.length}`);
+    console.log(this.employees);
+  }
+}
+
 class AccountingDepartment extends Department {
-  constructor(id: string, private reports: string[]) {
-    super(id, "Accounting");  // Call parent constructor
+  private reports: string[] = [];
+  constructor(id: string) {
+    super(id, "Accounting");
   }
 
   addReports(text: string): void {
     this.reports.push(text);
   }
 
-  // Override parent method
   addEmployee(emp: string): void {
-    if (emp === "Patel") return;  // Custom logic
-    super.addEmployee(emp);  // Call parent
+    super.addEmployee(emp);
   }
 
-  // Getter/Setter
   get getReports(): string[] {
     if (this.reports.length > 0) return this.reports;
     throw new Error("Report not found.");
@@ -465,18 +471,19 @@ class AccountingDepartment extends Department {
   }
 }
 
-const accDep = new AccountingDepartment("d1", []);
+const accDep = new AccountingDepartment("d1");
 accDep.addReports("Bugs");
-console.log(accDep.getReports);  // Output: ['Bugs']
-accDep.setReports = "Code review error";
-console.log(accDep.getReports);  // Output: ['Bugs', 'Code review error']
+console.log(accDep.getReports);
+accDep.setReports = "Code reivew error";
+console.log(accDep.getReports);
+
 ```
 
 **Explanation**:
 
--   super() calls parent.
--   Getters/setters act like properties but with logic.
--   Overrides must match signature.
+- super() calls parent.
+- Getters/setters act like properties but with logic.
+- Overrides must match signature.
 
 ### Static Methods
 
@@ -539,10 +546,9 @@ subClass.displayName();  // Output: "Accounting"
 
 **Explanation**: abstract enforces implementation in children.
 
-* * * * *
+---
 
-11\. Interfaces
----------------
+## 11\. Interfaces
 
 Interfaces define contracts for objects/classes. More flexible than types for OOP.
 
@@ -652,14 +658,13 @@ console.log(add(10, 20));  // Output: 30
 
 **Explanation**:
 
--   Interfaces for shape enforcement.
--   implements for classes; extend for composition.
--   Optional ? and readonly add flexibility/safety.
+- Interfaces for shape enforcement.
+- implements for classes; extend for composition.
+- Optional ? and readonly add flexibility/safety.
 
-* * * * *
+---
 
-12\. Type Guards
-----------------
+## 12\. Type Guards
 
 Narrow union types at runtime.
 
@@ -730,14 +735,13 @@ useVehicle(v2);  // Output: "Driving a truck..." \n "Loading cargo... 500"
 
 **Explanation**:
 
--   'prop' in obj checks existence.
--   instanceof for class instances.
--   After guard, TypeScript knows the exact type.
+- 'prop' in obj checks existence.
+- instanceof for class instances.
+- After guard, TypeScript knows the exact type.
 
-* * * * *
+---
 
-13\. Type Assertions
---------------------
+## 13\. Type Assertions
 
 Tell TypeScript to treat a value as a specific type (use sparingly, as it bypasses checks).
 
@@ -779,17 +783,16 @@ form.onsubmit = (e: SubmitEvent) => {
 
 **Explanation**:
 
--   as Type or <Type> asserts type.
--   ! asserts non-null.
--   Risky---use when you're sure (e.g., known DOM elements).
+- as Type or <Type> asserts type.
+- ! asserts non-null.
+- Risky---use when you're sure (e.g., known DOM elements).
 
-* * * * *
+---
 
-14\. Keyof and Index Signatures
--------------------------------
+## 14\. Keyof and Index Signatures
 
--   keyof: Extracts keys as union type.
--   Index signatures: Allow dynamic keys (e.g., [key: string]: value).
+- keyof: Extracts keys as union type.
+- Index signatures: Allow dynamic keys (e.g., [key: string]: value).
 
 ### Example: Keyof with Dynamic Access
 
@@ -820,30 +823,29 @@ console.log(getData("name"));  // Output: "Abhi"
 
 **Explanation**:
 
--   keyof T creates a union of property names.
--   Index signatures for dictionary-like objects (use cautiously to avoid losing type safety).
+- keyof T creates a union of property names.
+- Index signatures for dictionary-like objects (use cautiously to avoid losing type safety).
 
-* * * * *
+---
 
-15\. Utility Types
-------------------
+## 15\. Utility Types
 
 Built-in types for transforming existing types.
 
-| Utility Type | Description | Example |
-| --- | --- | --- |
-| Partial<T> | Makes all properties optional | Partial<{a: string}> = {a?: string} |
-| Required<T> | Makes all properties required | Required<{a?: string}> = {a: string} |
-| Readonly<T> | Makes all properties readonly | Readonly<{a: string}> = {readonly a: string} |
-| Record<K, T> | Creates object with keys K and values T | `Record<"a" |
-| Pick<T, K> | Picks specific keys from T | Pick<{a:1, b:2}, "a"> = {a:1} |
-| Omit<T, K> | Omits specific keys from T | Omit<{a:1, b:2}, "a"> = {b:2} |
-| Exclude<T, U> | Excludes U from union T | Exclude<string | number, number> = string |
-| Extract<T, U> | Extracts U from union T | Extract<string | number, number> = number |
-| NonNullable<T> | Excludes null/undefined from T | NonNullable<string | null> = string |
-| Parameters<T> | Tuple of function params | Parameters<() => void> = [] |
-| ReturnType<T> | Return type of function | ReturnType<() => string> = string |
-| InstanceType<T> | Instance type of constructor | InstanceType<typeof Array> = any[] |
+| Utility Type    | Description                             | Example                                      |
+| --------------- | --------------------------------------- | -------------------------------------------- | ------------------------ |
+| Partial<T>      | Makes all properties optional           | Partial<{a: string}> = {a?: string}          |
+| Required<T>     | Makes all properties required           | Required<{a?: string}> = {a: string}         |
+| Readonly<T>     | Makes all properties readonly           | Readonly<{a: string}> = {readonly a: string} |
+| Record<K, T>    | Creates object with keys K and values T | `Record<"a"                                  |
+| Pick<T, K>      | Picks specific keys from T              | Pick<{a:1, b:2}, "a"> = {a:1}                |
+| Omit<T, K>      | Omits specific keys from T              | Omit<{a:1, b:2}, "a"> = {b:2}                |
+| Exclude<T, U>   | Excludes U from union T                 | Exclude<string                               | number, number> = string |
+| Extract<T, U>   | Extracts U from union T                 | Extract<string                               | number, number> = number |
+| NonNullable<T>  | Excludes null/undefined from T          | NonNullable<string                           | null> = string           |
+| Parameters<T>   | Tuple of function params                | Parameters<() => void> = []                  |
+| ReturnType<T>   | Return type of function                 | ReturnType<() => string> = string            |
+| InstanceType<T> | Instance type of constructor            | InstanceType<typeof Array> = any[]           |
 
 ### Examples
 
@@ -916,13 +918,12 @@ const userInstance: ClassInstance = { s: "44", t: "ssds" };
 
 **Explanation**:
 
--   Utilities compose types for DRY code.
--   E.g., Partial<T> for optional updates.
+- Utilities compose types for DRY code.
+- E.g., Partial<T> for optional updates.
 
-* * * * *
+---
 
-16\. Generics
--------------
+## 16\. Generics
 
 Parametric types for reusable, type-safe code (e.g., arrays without losing types).
 
@@ -1053,14 +1054,13 @@ console.log(name1);
 
 **Explanation**:
 
--   <T> placeholders ensure type preservation.
--   extends constrains to subtypes.
--   Use for collections, utils---avoids any.
+- <T> placeholders ensure type preservation.
+- extends constrains to subtypes.
+- Use for collections, utils---avoids any.
 
-* * * * *
+---
 
-17\. Advanced Function Types (from Document 1)
-----------------------------------------------
+## 17\. Advanced Function Types (from Document 1)
 
 ### Optional/Default/Rest Parameters
 
@@ -1117,9 +1117,9 @@ getData(productOne);  // Logs the object
 
 **Explanation**:
 
--   ? for optional; defaults for fallbacks.
--   ... for variable args.
--   Readonly prevents mutation.
+- ? for optional; defaults for fallbacks.
+- ... for variable args.
+- Readonly prevents mutation.
 
 ### Never in Functions
 
@@ -1132,10 +1132,9 @@ const errorHandler = (): never => {
 // errorHandler();  // Throws error, never returns
 ```
 
-* * * * *
+---
 
-18\. Extending Interfaces and Types (from Document 1)
------------------------------------------------------
+## 18\. Extending Interfaces and Types (from Document 1)
 
 ### Interfaces and Types in Objects/Functions
 
@@ -1174,5 +1173,5 @@ kendal.func(20, 10);  // Output: 200
 
 **Explanation**:
 
--   extends for inheritance.
--   Combines with types for complex structures.
+- extends for inheritance.
+- Combines with types for complex structures.
