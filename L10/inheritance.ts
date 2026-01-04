@@ -46,3 +46,5 @@ accDep.addReports("Bugs");
 console.log(accDep.getReports);
 accDep.setReports = "Code reivew error";
 console.log(accDep.getReports);
+accDep.addEmployee("Nikhil");
+console.log(accDep.printEmployee());
